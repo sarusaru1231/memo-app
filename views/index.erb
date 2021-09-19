@@ -1,0 +1,39 @@
+<main>
+  <div class="header">
+    <div class="row">
+      <div class="col-10">
+        <h1>Memo 一覧</h1>
+      </div>
+      <div class="col-2">
+        <a role="button" class="btn btn-primary" href="/memos/new">追加する</a>
+      </div>
+    </div>
+  </div>
+  <div class="content w-auto">
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Title</th>
+            <th scope="col">Content</th>
+            <th scope="col">Operation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @memos.each do |memo| %>
+            <tr>
+              <th scope="row"><%= memo.id %></td>
+              <td><%= h(memo.title) %></td>
+              <td><%= h(memo.content) %></td>
+              <td>
+                <a role="button" class="btn btn-primary" href="/memos/<%=memo.id%>/edit">編集する</a>
+                <a role="button" class="btn btn-outline-primary" href="/memos/<%=memo.id%>">表示する</a>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
