@@ -38,4 +38,11 @@ class Memo
     end
     File.open(filename, 'w') { |f| JSON.dump(file_content, f) }
   end
+
+  def self.destroy_content(filename, memo)
+    file_content = File.open(filename, 'r') { |f| JSON.parse(f.read) }
+    result = file_content.find_index { |params| params['id'].eql?(memo.id.to_s) }
+    file_content.delete_at(result)
+    File.open(filename, 'w') { |f| JSON.dump(file_content, f) }
+  end
 end

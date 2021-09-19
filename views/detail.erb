@@ -12,7 +12,8 @@
       <dd class="col-sm-9"><%=h(@memo.content)%></dd>
     </dl>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-      <a role="button" class="btn btn-primary" href="<%=@edit_link%>">編集する</a>
+      <a role="button" class="btn btn-primary" href="/memos/<%=h(@memo.id)%>/edit">編集する</a>
+      <a role="button" class="btn btn-outline-danger" href="/memos/<%=h(@memo.id)%>/destroy">削除する</a>
       <a role="button" class="btn btn-outline-primary" href="/">一覧へ</a>
     </div>
   </div>

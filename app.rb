@@ -9,8 +9,8 @@ require_relative './models/memo'
 JSON_FILENAME = 'db/memos.json'
 
 helpers do
-  def submit(str)
-    "<button type=\"submit\" class=\"btn btn-primary\">#{str}</button>"
+  def submit(str, style)
+    "<button type=\"submit\" class=\"#{style}\">#{str}</button>"
   end
 
   def h(text)
@@ -30,7 +30,7 @@ end
 
 get '/memos/new' do
   @title = 'Memo 新規作成'
-  @submit = submit('作成する')
+  @submit = submit('作成する', 'btn btn-primary')
   erb :create
 end
 
@@ -46,7 +46,6 @@ get '/memos/:id' do
     redirect to not_found
   else
     @title = 'Memo 詳細'
-    @edit_link = "/memos/#{params[:id]}/edit"
     erb :detail
   end
 end
@@ -62,7 +61,23 @@ get '/memos/:id/edit' do
     redirect to not_found
   else
     @title = 'Memo 編集'
-    @submit = submit('保存する')
+    @submit = submit('保存する', 'btn btn-primary')
     erb :edit
   end
+end
+
+get '/memos/:id/destroy' do
+  @memo = Memo.load_content(JSON_FILENAME, params[:id])
+  if @memo.nil?
+    redirect to not_found
+  else
+    @title = 'Memo 削除'
+    @submit = submit('削除する', 'btn btn-danger')
+    erb :destroy
+  end
+end
+
+delete '/memos/:id/destroy' do
+  Memo.destroy_content(JSON_FILENAME, Memo.new(params[:id], params[:title], params[:content]))
+  redirect to '/'
 end
