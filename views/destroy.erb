@@ -1,20 +1,20 @@
 <main>
   <div class="header">
-    <h1>Memo 削除確認</h1>
+    <h1><%= h(@title) %></h1>
   </div>
   <div class="content w-auto">
     <dl class="row">
       <dt class="col-sm-3">ID</dt>
-      <dd class="col-sm-9"><%=h(@memo.id)%></dd>
+      <dd class="col-sm-9"><%= @memo.id %></dd>
       <dt class="col-sm-3">Title</dt>
-      <dd class="col-sm-9"><%=h(@memo.title)%></dd>
+      <dd class="col-sm-9"><%= h(@memo.title) %></dd>
       <dt class="col-sm-3">Content</dt>
-      <dd class="col-sm-9"><%=h(@memo.content)%></dd>
+      <dd class="col-sm-9"><%= h(@memo.content) %></dd>
     </dl>
-    <form class="row g-3" action="/memos/<%=h(@memo.id)%>" method="post">
-      <input type="hidden" name="_method" value="DELETE"> 
+    <form class="row g-3" action="/memos/<%= @memo.id %>" method="post">
+      <input type="hidden" name="_method" value="DELETE">
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <%=@submit%>
+        <%= @submit %>
         <button type="button" class="btn btn-outline-primary" onclick="history.back(-1)">戻る</button>
       </div>
     </form>

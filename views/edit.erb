@@ -1,21 +1,21 @@
 <main>
   <div class="header">
-    <h1>Memo 編集</h1>
+    <h1><%= h(@title) %></h1>
   </div>
   <div class="content">
     <div class="conatiner-lg">
-      <form class="row g-3" action="/memos/<%=h(@memo.id)%>" method="post">
+      <form class="row g-3" action="/memos/<%= @memo.id %>" method="post">
         <input type="hidden" name="_method" value="PATCH">
         <div class="col-12">
           <label for="title" class="form-label">Title</label>
-          <input type="text" class="form-control" id="title" name="title" placeholder="Title" value="<%=h(@memo.title)%>">
+          <input type="text" class="form-control" id="title" name="title" placeholder="Title" value="<%= h(@memo.title) %>">
         </div>
         <div class="col-12">
           <label for="content" class="form-label">Content</label>
-          <textarea class="form-control" id="content" name="content" rows="3"><%=h(@memo.content)%></textarea>
+          <textarea class="form-control" id="content" name="content" rows="3"><%= h(@memo.content) %></textarea>
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-          <%=@submit%>
+          <%= @submit %>
           <button type="button" class="btn btn-outline-primary" onclick="history.back(-1)">戻る</button>
         </div>
       </form>

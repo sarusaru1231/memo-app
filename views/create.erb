@@ -1,6 +1,6 @@
 <main>
   <div class="header">
-    <h1>Memo 作成</h1>
+    <h1><%= h(@title) %></h1>
   </div>
   <div class="content">
     <div class="conatiner-lg">
@@ -14,7 +14,7 @@
           <textarea class="form-control" id="content" name="content" rows="3"></textarea>
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-          <%=@submit%>
+          <%= @submit %>
           <button type="button" class="btn btn-outline-primary" onclick="history.back(-1)">戻る</button>
         </div>
       </form>
