@@ -4,7 +4,7 @@
   </div>
   <div class="content">
     <div class="conatiner-lg">
-      <form class="row g-3" action="/memos/<%=h(@memo.id)%>/edit" method="post">
+      <form class="row g-3" action="/memos/<%=h(@memo.id)%>" method="post">
         <input type="hidden" name="_method" value="PATCH">
         <div class="col-12">
           <label for="title" class="form-label">Title</label>

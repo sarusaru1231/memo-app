@@ -11,7 +11,7 @@
       <dt class="col-sm-3">Content</dt>
       <dd class="col-sm-9"><%=h(@memo.content)%></dd>
     </dl>
-    <form class="row g-3" action="/memos/<%=h(@memo.id)%>/destroy" method="post">
+    <form class="row g-3" action="/memos/<%=h(@memo.id)%>" method="post">
       <input type="hidden" name="_method" value="DELETE"> 
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <%=@submit%>

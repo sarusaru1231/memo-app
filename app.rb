@@ -34,7 +34,7 @@ get '/memos/new' do
   erb :create
 end
 
-post '/memos/new' do
+post '/memos' do
   id = Memo.calculate_id(JSON_FILENAME)
   Memo.save_content(JSON_FILENAME, Memo.new(id, params[:title], params[:content]))
   redirect to "/memos/#{id}"
@@ -50,9 +50,14 @@ get '/memos/:id' do
   end
 end
 
-patch '/memos/:id/edit' do
+patch '/memos/:id' do
   Memo.save_content(JSON_FILENAME, Memo.new(params[:id], params[:title], params[:content]))
   redirect to "/memos/#{params[:id]}"
+end
+
+delete '/memos/:id' do
+  Memo.destroy_content(JSON_FILENAME, Memo.new(params[:id], params[:title], params[:content]))
+  redirect to '/'
 end
 
 get '/memos/:id/edit' do
@@ -75,9 +80,4 @@ get '/memos/:id/destroy' do
     @submit = submit('削除する', 'btn btn-danger')
     erb :destroy
   end
-end
-
-delete '/memos/:id/destroy' do
-  Memo.destroy_content(JSON_FILENAME, Memo.new(params[:id], params[:title], params[:content]))
-  redirect to '/'
 end
