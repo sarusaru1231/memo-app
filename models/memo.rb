@@ -22,15 +22,15 @@ class Memo
 
   def self.load_content(filename, id)
     file_content = load_json_file(filename)
-    result = file_content.find { |params| params['id'].eql?(id.to_s) }
+    result = file_content.find { |params| params['id'] == id }
     Memo.new(result['id'], result['title'], result['content']) unless result.nil?
   end
 
   def self.save_content(filename, memo)
     file_content = load_json_file(filename)
-    result = file_content.find_index { |params| params['id'].eql?(memo.id.to_s) }
+    result = file_content.find_index { |params| params['id'] == memo.id }
     if result.nil?
-      new_memo = { 'id' => memo.id, 'title' => memo.title, 'content' => memo.content }
+      new_memo = { 'id': memo.id, 'title': memo.title, 'content': memo.content }
       file_content.push(new_memo)
     else
       file_content[result]['title'] = memo.title
@@ -41,7 +41,7 @@ class Memo
 
   def self.destroy_content(filename, memo)
     file_content = load_json_file(filename)
-    result = file_content.find_index { |params| params['id'].eql?(memo.id.to_s) }
+    result = file_content.find_index { |params| params['id'] == memo.id }
     file_content.delete_at(result)
     save_json_file(file_content, filename)
   end
