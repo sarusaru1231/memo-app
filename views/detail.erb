@@ -1,0 +1,20 @@
+<main>
+  <div class="header">
+    <h1><%= h(@title) %></h1>
+  </div>
+  <div class="content w-auto">
+    <dl class="row">
+      <dt class="col-sm-3">ID</dt>
+      <dd class="col-sm-9"><%= @memo.id %></dd>
+      <dt class="col-sm-3">Title</dt>
+      <dd class="col-sm-9"><%= h(@memo.title) %></dd>
+      <dt class="col-sm-3">Content</dt>
+      <dd class="col-sm-9"><%= h(@memo.content) %></dd>
+    </dl>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <a role="button" class="btn btn-primary" href="/memos/<%= @memo.id %>/edit">編集する</a>
+      <a role="button" class="btn btn-outline-danger" href="/memos/<%= @memo.id %>/destroy">削除する</a>
+      <a role="button" class="btn btn-outline-primary" href="/">一覧へ</a>
+    </div>
+  </div>
+</main>
