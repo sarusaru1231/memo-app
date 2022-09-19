@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'pg'
+require 'yaml'
+
 class Memo
   attr_accessor :title, :content
   attr_reader :id
@@ -10,54 +13,45 @@ class Memo
     @content = content
   end
 
-  def self.order(filename)
-    file_content = load_json_file(filename)
-    file_content.map { |params| Memo.new(params['id'], params['title'], params['content']) }
+  def self.order
+    connection = connect_database
+    results = connection.exec('SELECT id, title, content FROM memos ORDER BY id')
+    connection.finish
+    results.map { |params| Memo.new(params['id'], params['title'], params['content']) }
   end
 
-  def self.calculate_id(filename)
-    file_content = load_json_file(filename)
-    file_content.empty? ? '1' : (file_content.map { |params| params['id'].to_i }.max + 1).to_s
-  end
-
-  def self.load_content(filename, id)
-    file_content = load_json_file(filename)
-    result = file_content.find { |params| params['id'] == id }
+  def self.load_content(id)
+    connection = connect_database
+    result = connection.exec_params('SELECT id, title, content FROM memos where id = $1', [id])[0]
+    connection.finish
     Memo.new(result['id'], result['title'], result['content']) unless result.nil?
   end
 
-  def self.save_content(filename, memo)
-    file_content = load_json_file(filename)
-    result = file_content.find_index { |params| params['id'] == memo.id }
-    if result.nil?
-      new_memo = { 'id': memo.id, 'title': memo.title, 'content': memo.content }
-      file_content.push(new_memo)
-    else
-      file_content[result]['title'] = memo.title
-      file_content[result]['content'] = memo.content
-    end
-    save_json_file(file_content, filename)
+  def self.add_content(title, content)
+    connection = connect_database
+    id = connection.exec('SELECT max(id) FROM memos')[0]['max'].to_i + 1
+    connection.exec_params('INSERT INTO memos VALUES ($1, $2, $3)', [id, title, content])
+    connection.finish
+    id
   end
 
-  def self.destroy_content(filename, memo)
-    file_content = load_json_file(filename)
-    result = file_content.find_index { |params| params['id'] == memo.id }
-    file_content.delete_at(result)
-    save_json_file(file_content, filename)
+  def self.save_content(id, title, content)
+    connection = connect_database
+    connection.exec_params('UPDATE memos SET title = $1, content = $2 WHERE id = $3',
+                           [title, content, id])
+    connection.finish
   end
 
-  def self.load_json_file(filename)
-    File.open(filename, 'r') do |f|
-      f.flock(File::LOCK_SH)
-      JSON.parse(f.read)
-    end
+  def self.destroy_content(id)
+    connection = connect_database
+    connection.exec_params('DELETE FROM memos WHERE id = $1', [id])
+    connection.finish
   end
 
-  def self.save_json_file(file_content, filename)
-    File.open(filename, 'w') do |f|
-      f.flock(File::LOCK_EX)
-      JSON.dump(file_content, f)
-    end
+  def self.connect_database
+    db_config = YAML.load_file('./config/database.yml')['db']['development']
+    PG.connect(db_config)
   end
-  private_class_method :load_json_file, :save_json_file
+
+  private_class_method :connect_database
 end

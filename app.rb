@@ -5,8 +5,6 @@ require 'json'
 require 'cgi'
 require_relative './models/memo'
 
-JSON_FILENAME = 'db/memos.json'
-
 helpers do
   def submit(str, style)
     "<button type=\"submit\" class=\"#{style}\">#{str}</button>"
@@ -23,7 +21,7 @@ end
 
 get '/' do
   @title = 'Memo 一覧'
-  @memos = Memo.order(JSON_FILENAME)
+  @memos = Memo.order
   erb :index
 end
 
@@ -34,13 +32,12 @@ get '/memos/new' do
 end
 
 post '/memos' do
-  id = Memo.calculate_id(JSON_FILENAME)
-  Memo.save_content(JSON_FILENAME, Memo.new(id, params[:title], params[:content]))
+  id = Memo.add_content(params[:title], params[:content])
   redirect to "/memos/#{id}"
 end
 
 get '/memos/:id' do
-  @memo = Memo.load_content(JSON_FILENAME, params[:id])
+  @memo = Memo.load_content(params[:id])
   if @memo.nil?
     redirect to not_found
   else
@@ -50,17 +47,17 @@ get '/memos/:id' do
 end
 
 patch '/memos/:id' do
-  Memo.save_content(JSON_FILENAME, Memo.new(params[:id], params[:title], params[:content]))
+  Memo.save_content(params[:id], params[:title], params[:content])
   redirect to "/memos/#{params[:id]}"
 end
 
 delete '/memos/:id' do
-  Memo.destroy_content(JSON_FILENAME, Memo.new(params[:id], params[:title], params[:content]))
+  Memo.destroy_content(params[:id])
   redirect to '/'
 end
 
 get '/memos/:id/edit' do
-  @memo = Memo.load_content(JSON_FILENAME, params[:id])
+  @memo = Memo.load_content(params[:id])
   if @memo.nil?
     redirect to not_found
   else
@@ -71,7 +68,7 @@ get '/memos/:id/edit' do
 end
 
 get '/memos/:id/destroy' do
-  @memo = Memo.load_content(JSON_FILENAME, params[:id])
+  @memo = Memo.load_content(params[:id])
   if @memo.nil?
     redirect to not_found
   else

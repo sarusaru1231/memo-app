@@ -1,0 +1,5 @@
+db:
+  development:
+    host: localhost
+    dbname: memo_app
+    port: 5432
