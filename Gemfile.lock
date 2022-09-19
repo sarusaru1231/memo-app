@@ -1,13 +1,13 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    actionview (7.0.2.3)
-      activesupport (= 7.0.2.3)
+    actionview (7.0.4)
+      activesupport (= 7.0.4)
       builder (~> 3.1)
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
-    activesupport (7.0.2.3)
+    activesupport (7.0.4)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
@@ -30,75 +30,78 @@ GEM
       rainbow
       rubocop
       smart_properties
-    erubi (1.10.0)
+    erubi (1.11.0)
     ffi (1.15.5)
-    i18n (1.8.11)
+    i18n (1.12.0)
       concurrent-ruby (~> 1.0)
+    json (2.6.2)
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    loofah (2.12.0)
+    loofah (2.19.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    minitest (5.14.4)
-    mustermann (1.1.1)
+    minitest (5.16.3)
+    mustermann (2.0.2)
       ruby2_keywords (~> 0.0.1)
-    nokogiri (1.12.5-arm64-darwin)
+    nokogiri (1.13.8-arm64-darwin)
       racc (~> 1.4)
     parallel (1.22.1)
-    parser (3.1.1.0)
+    parser (3.1.2.1)
       ast (~> 2.4.1)
+    pg (1.4.3)
     racc (1.6.0)
-    rack (2.2.3)
-    rack-protection (2.1.0)
+    rack (2.2.4)
+    rack-protection (2.2.2)
       rack
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.4.2)
+    rails-html-sanitizer (1.4.3)
       loofah (~> 2.3)
     rainbow (3.1.1)
     rb-fsevent (0.11.2)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    regexp_parser (2.1.1)
+    regexp_parser (2.5.0)
     rerun (0.13.1)
       listen (~> 3.0)
     rexml (3.2.5)
-    rubocop (1.26.1)
+    rubocop (1.36.0)
+      json (~> 2.3)
       parallel (~> 1.10)
-      parser (>= 3.1.0.0)
+      parser (>= 3.1.2.1)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
-      rexml
-      rubocop-ast (>= 1.16.0, < 2.0)
+      rexml (>= 3.2.5, < 4.0)
+      rubocop-ast (>= 1.20.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.16.0)
+    rubocop-ast (1.21.0)
       parser (>= 3.1.1.0)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
-    sinatra (2.1.0)
-      mustermann (~> 1.0)
+    sinatra (2.2.2)
+      mustermann (~> 2.0)
       rack (~> 2.2)
-      rack-protection (= 2.1.0)
+      rack-protection (= 2.2.2)
       tilt (~> 2.0)
     smart_properties (1.17.0)
-    tilt (2.0.10)
-    tzinfo (2.0.4)
+    tilt (2.0.11)
+    tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
-    unicode-display_width (2.1.0)
+    unicode-display_width (2.3.0)
     webrick (1.7.0)
 
 PLATFORMS
   arm64-darwin-21
-  x86_64-darwin-20
 
 DEPENDENCIES
   erb_lint
+  pg
   rerun
   sinatra
   webrick
 
 BUNDLED WITH
-   2.3.6
+   2.3.7
